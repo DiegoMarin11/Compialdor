@@ -22,12 +22,14 @@ if __name__ == "__main__":
 
     if string:
         string_no_spaces = replace_spaces(string)
+        #print(string_no_spaces)
         processed_string = extract_words(string_no_spaces)
+        print(processed_string)
         tokens = tokenize(processed_string, Automaton, keywords)
 
         print_table(tokens)
 
         
-    #print(tokens)
+        print(tokens)
     
 

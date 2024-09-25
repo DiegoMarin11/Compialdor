@@ -1,3 +1,2 @@
-Borrar Todos De alumnos En 3atributo = 223
-Borrar Todos De alumnos En 3atributo = 22
-Borrar Todos De alumno_s En 3atributo = 2
+
+Insertar alumnos Valores ("Carlos", "Lopez"), ("Ana", 'Garcia")
