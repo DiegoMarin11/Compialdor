@@ -3,17 +3,6 @@
 def process_word(word, automaton, keywords):
 
 
-    '''
-    if word in ['(', ')', '"', ',']:
-        stack.append(word)
-        print(stack)
-        if stack and stack[-1] in ["(", '"',")"]:
-            is_value = True
-            word = stack[-1] + word
-            stack = []
-    
-    '''
-
     state = 'd0'
     read_word = []
     #print(word)
