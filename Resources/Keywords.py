@@ -8,7 +8,7 @@ keywords = {
     "Borrar":"DELETE",
     "En": "IN",
     "Valores":"VALUES",
-    "Insertar a":"INTO",
+    "A":"INTO",
     "El":"SET",
     "Los":"SET",
 

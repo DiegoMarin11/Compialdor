@@ -2,22 +2,21 @@ def read_file(inputfile):
     try:
         string = ""
         with open(inputfile, 'r') as file:
-            lines = file.readlines()  # Lee cada línea por separado
+            # Lee todo el contenido del archivo como una sola cadena
+            content = file.read()
 
-            if not lines: #No se leyo nada
-                print(f"Archivo{inputfile}vacio")
+            if not content:  # Si el archivo está vacío
+                print(f"Archivo {inputfile} vacío")
                 return None
 
-
-    # Procesa cada línea
-        for line in lines:
-            string = line.strip()  # Elimina espacios en blanco alrededor de la línea
+            # Reemplaza los saltos de línea por espacios
+            string = content.replace('\n', ' ').strip()  # Elimina espacios adicionales al principio o final
         return string
 
-
-
     except FileNotFoundError:
-        print(f"Error: Archivo no encontrado.")
+        print(f"Error: Archivo {inputfile} no encontrado.")
+        return None
 
     except IOError as e:
-        print(f"Error: Entrada no valida.")
+        print(f"Error: Entrada no válida.")
+        return None
