@@ -6,10 +6,12 @@ def process_word(word, automaton, keywords):
     state = 'd0'
     read_word = []
 
-
+    
 
     for char in word:
         #print(char)
+       
+        
         transitions = automaton.get(state, {})
         next_state = transitions.get(char, 'q_generic')
         #next_state = automaton.get(state, {}).get(char, 'q_generic')  # q_generic as default state if no valid transitions
@@ -19,8 +21,8 @@ def process_word(word, automaton, keywords):
         #print(f"Transition: {state} --({char})--> {next_state}")
         state = next_state
 
-
-
+  
+  
 
     read_word_str = ''.join(read_word)
 
@@ -45,10 +47,28 @@ def process_word(word, automaton, keywords):
 def tokenize(processed_string, automaton, keywords):
     
     tokens = []
+    open_parentheses = 0
+    closed_parentheses = 0 
+    open_quotes = 0
 
     for word in processed_string:
         processed_word, token_type = process_word(word, automaton, keywords)
         tokens.append((processed_word, token_type))
+        if processed_word == '(':
+            open_parentheses += 1
+        if processed_word == ')':
+            closed_parentheses += 1
+        
+        if processed_word == '"':
+            open_quotes += 1
+
+    if open_parentheses != closed_parentheses:
+        raise ValueError (word, "ERROR: Unbalanced parentheses")
+
+   
+    if open_quotes % 2 != 0:
+        raise ValueError (word, "ERROR: Unmatched quotes")
+
 
 
     return tokens
