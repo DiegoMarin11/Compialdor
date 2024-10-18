@@ -24,25 +24,25 @@ def process_word(word, automaton, keywords):
   
   
 
-    read_word_str = ''.join(read_word)
+
 
 
 
     if state == 'd6' or state == 'd45':  # Acceptance states
         if word in keywords:
-            return (read_word_str, "KEYWORD")
+            return (keywords[word], "KEYWORD")
         if word.isdigit():
-            return (read_word_str, "NUMBER")
+            return (word, "NUMBER")
         if word in["=",">","<"]:
-            return (read_word_str, "OPERATOR")
+            return (word, "OPERATOR")
         
     elif state == 'd36':
         if word in ['(', ')', '"', ',']:
             return (word, "PUNCTUATION")
     elif state == 'd34':
-        return (read_word_str, "INVALID IDENTIFIER")
+        return (word, "INVALID IDENTIFIER")
     else:
-        return (read_word_str,"IDENTIFIER")
+        return (word,"IDENTIFIER")
 
 def tokenize(processed_string, automaton, keywords):
     
