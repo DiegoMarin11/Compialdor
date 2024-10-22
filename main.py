@@ -31,12 +31,13 @@ if __name__ == "__main__":
 
                 
         print(tokens)
-
-
+        query_type = tokens[0][0]
+        print(query_type)
         parse = ParseInsert(tokens)
 
         parse_tree = parse.parse_insert()
-
+        
+        
         parse_tree.print_productions()
     
 

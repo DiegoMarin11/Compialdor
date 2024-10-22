@@ -8,6 +8,8 @@ ValuePrime -> “,” Value | Epsilon
 Table -> IDENTIFIER
 VALUE -> IDENTIFIER | NUMBER
 
+
+TOP DOWN LL1
 '''
 class ParseInsert:
     def __init__(self, tokens):
