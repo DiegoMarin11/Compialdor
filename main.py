@@ -4,7 +4,8 @@ from Resources.Automata import *
 from Data_processing.Readfile import *
 from Data_processing.ProcessString import *
 from prettytable import PrettyTable
-from Sintax.Parser import ParseInsert
+from Sintax.InsertParser import ParseInsert
+from Sintax.DeleteParser import ParseDelete
 def print_table(tokens):
     table = PrettyTable()
     table.field_names = ["String", "Type"]
@@ -33,11 +34,20 @@ if __name__ == "__main__":
         print(tokens)
         query_type = tokens[0][0]
         print(query_type)
-        parse = ParseInsert(tokens)
 
-        parse_tree = parse.parse_insert()
-        
-        
-        parse_tree.print_productions()
+        if query_type == 'INSERT':
+            parse = ParseInsert(tokens)
+            parse_tree = parse.parse_insert()
+            parse_tree.print_productions()
+
+        if query_type == 'DELETE':
+            
+            parse = ParseDelete(tokens)
+            parse_tree = parse.parse_delete()
+            parse_tree.print_productions()
+        if query_type == 'UPDATE':
+            pass
+        if query_type == 'SELECT':
+            pass
     
 

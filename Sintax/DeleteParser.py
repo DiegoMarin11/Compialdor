@@ -40,7 +40,7 @@ class ParseDelete:
                     node.add_child(table_node)
                     self.next_token()
 
-                    # Llamamos a parse_where_clause para procesar la cláusula WHERE
+                   
                     node.add_child(self.parse_where_clause())
 
         return node
@@ -52,24 +52,24 @@ class ParseDelete:
         if self.current_token and self.current_token[0] == 'WHERE':
             node.add_child(TreeNode('WHERE'))
             self.next_token()
-            node.add_child(self.parse_condition())  # Procesamos la condición
+            node.add_child(self.parse_condition())  
         else:
-            node.add_child(TreeNode('Epsilon'))  # Producción vacía si no hay WHERE
+            node.add_child(TreeNode('Epsilon')) 
 
         return node
 
     def parse_condition(self):
         """Condition -> Column Operator Value"""
         node = TreeNode("Condition")
-        node.add_child(self.parse_column())  # Procesamos la columna
+        node.add_child(self.parse_column())
 
         if self.current_token and self.current_token[0] in ['=', '>', '<']:
-            node.add_child(TreeNode(self.current_token[0]))  # Operador
+            node.add_child(TreeNode(self.current_token[0]))
             self.next_token()
 
-            node.add_child(self.parse_value())  # Procesamos el valor
+            node.add_child(self.parse_value())
         else:
-            raise Exception("Error: Se esperaba un operador (=, >, <)")
+            raise Exception("Error: Se esperaba un operador =, >, <")
 
         return node
 

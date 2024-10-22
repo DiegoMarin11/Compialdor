@@ -1,1 +1,1 @@
-Insertar A alumnos Valores ("Carlos","Lopez ")
+Borrar De alumnos Donde Edad < 18 

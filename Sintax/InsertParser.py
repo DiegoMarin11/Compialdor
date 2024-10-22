@@ -82,10 +82,10 @@ class ParseInsert:
         """Values -> Value ValuesPrime"""
         node = TreeNode("Values")
 
-        # Parseamos el primer valor
+
         node.add_child(self.parse_value())  
 
-        # Llamamos a ValuesPrime para procesar más valores si es necesario
+   
         node.add_child(self.parse_values_prime())
 
         return node
