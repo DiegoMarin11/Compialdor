@@ -40,7 +40,7 @@ def process_word(word, automaton, keywords):
         if word in ['(', ')', '"', ',']:
             return (word, "PUNCTUATION")
     elif state == 'd34':
-        return (word, "INVALID IDENTIFIER")
+        raise ValueError(f"ERROR: INVALID IDENTIFIER {read_word}")
     else:
         return (word,"IDENTIFIER")
 

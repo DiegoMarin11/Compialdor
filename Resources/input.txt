@@ -1,2 +1,1 @@
-Insertar A alumnos Valores ("Carlos","Lopez "), 
-("Ana", "Garcia") > <
+Insertar A alumnos Valores ("Carlos","Lopez ")

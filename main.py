@@ -4,7 +4,7 @@ from Resources.Automata import *
 from Data_processing.Readfile import *
 from Data_processing.ProcessString import *
 from prettytable import PrettyTable
-
+from Sintax.Parser import ParseInsert
 def print_table(tokens):
     table = PrettyTable()
     table.field_names = ["String", "Type"]
@@ -31,6 +31,12 @@ if __name__ == "__main__":
 
                 
         print(tokens)
-        #parser(tokens)
+
+
+        parse = ParseInsert(tokens)
+
+        parse_tree = parse.parse_insert()
+
+        parse_tree.print_productions()
     
 
