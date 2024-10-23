@@ -37,7 +37,7 @@
 ## Arquitectura y Diseño del Compilador
 
 - **Diagrama de bloques:**
-  <center><img width="250px" src="bloques.jpg"></center>
+  <center><img width="250px" src="./ResourcesMD/bloques.jpg"></center>
 - **Explicación del flujo de datos:**
   La entrada en lenguaje natural se analiza para identificar palabras clave, operadores e identificar que palabras se estan refiriendo al nomnre de una columna. Luego son transformados en una consulta SQL.
 - **Decisiones de diseño:**
@@ -59,11 +59,13 @@
 
 ## Diagramas:
 
-**Automata definido**
-<img src="automatadefinido.jpg">
+**Automata finito no deterministico**
+<img src="./ResourcesMD/automatanodefinido.jpg">
 
-**Automata no definido**
-<img src="automatanodefinido.jpg">
+**Automata finito deterministico**
+<img src="./ResourcesMD/automatadeterministico.png">
+
+
 
 **Palabras clave**
 
@@ -73,11 +75,103 @@
 - **"Donde"**: "WHERE",
 - **"Insertar"**: "INSERT",
 - **"Actualizar"**: "UPDATE",
-- **"Borrar"**:"DELETE",
+- **"Borrar"**:"DELETE"
+- **"En"** : "IN",
+- **"Valores":**"VALUES",
+- **"A":**"INTO",
+- **"El":**"SET",
+- **"Los":**"SET".
 
 ## Análisis Sintáctico
 
 - **Análisis sintáctico:**
+
+Primera versión de la gramática:
+
+InsertQuery -> INSERT INTO Table VALUES ValuesGroup \
+ValuesGroup -> "(" Values ")" | "(" Values ")" "," ValuesGroup \
+Values -> Value | Value "," Values \
+Table -> IDENTIFIER \
+Value -> IDENTIFIER | NUMBER
+
+DeleteQuery -> DELETE FROM Table WhereClause \
+WhereClause -> WHERE Condition | Epsilon \
+Condition -> Column Operator Value \
+Operator -> "=" | ">" | "<" \
+Column -> IDENTIFIER \ 
+Table -> IDENTIFIER \
+Value -> IDENTIFIER | NUMBER 
+
+SelectQuery -> SELECT Columns FROM Table WhereClause \
+Columns -> * | ColumnList \
+ColumnList -> Column | Column "," ColumnList \
+WhereClause -> WHERE Condition | Epsilon \ 
+Condition -> Column Operator Value \
+Operator -> "=" | ">" | "<" \
+Column -> IDENTIFIER \
+Table -> IDENTIFIER \
+Value -> IDENTIFIER | NUMBER 
+
+UpdateQuery -> UPDATE Table SET Assignments WhereClause \
+Assignments -> Assignment | Assignment "," Assignments \
+Assignment -> Column "=" Value \
+WhereClause -> WHERE Condition | Epsilon \
+Condition -> Column Operator Value \
+Operator -> "=" | ">" | "<" \
+Column -> IDENTIFIER \
+Table -> IDENTIFIER \
+Value -> IDENTIFIER | NUMBER
+
+
+**Posibles recursiones izquierdas posibles (Nueva propuesta):**
+
+De acuerdo a la tabla de first and follow podemos separar ValuesGroup Y Values
+
+INSERT: \
+InsertQuery -> INSERT INTO Table Values ValesGroup \
+ValuesGroup -> “(“ Values ”)”  ValuesGroupPrime \
+ValuesGroupPrime -> “,” ValuesGroup | Epsilon \
+Values -> Value ValuePrime \
+ValuePrime -> “,” Value | Epsilon \
+Table -> IDENTIFIER \
+VALUE -> IDENTIFIER | NUMBER
+
+DELETE no necesita cambios.
+
+DeleteQuery -> DELETE FROM Table WhereClause \
+WhereClause -> WHERE Condition | Epsilon \
+Condition -> Column Operator Value \
+Operator -> "=" | ">" | "<" \
+Column -> IDENTIFIER \
+Table -> IDENTIFIER \
+Value -> IDENTIFIER | NUMBER
+
+SELECT:
+ 
+SelectQuery -> SELECT Columns FROM Table WhereClause \
+Columns -> * | ColumnList \
+ColumnList -> Column ColumnListPrime \ 
+ColumnListPrime - > "," ColumnList | Epsilon \
+WhereClause -> WHERE Condition | Epsilon \
+Condition -> Column Operator Value \
+Operator -> "=" | ">" | "<" \
+Column -> IDENTIFIER \
+Table -> IDENTIFIER \
+Value -> IDENTIFIER | NUMBER
+
+UPDATE: 
+
+UpdateQuery -> UPDATE Table SET Assignments WhereClause \
+Assignments -> Assignment AssignmentPrime \
+AssignmentsPrime -> "," Assignments | Epsilon \
+Assignment -> Column "=" Value \
+WhereClause -> WHERE Condition | Epsilon \
+Condition -> Column Operator Value \
+Operator -> "=" | ">" | "<" \
+Column -> IDENTIFIER \
+Table -> IDENTIFIER \
+Value -> IDENTIFIER | NUMBER
+
 
 - **Ejemplos:**
 

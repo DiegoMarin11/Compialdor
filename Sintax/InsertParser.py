@@ -41,7 +41,7 @@ class ParseInsert:
                         node.add_child(TreeNode('VALUES'))
                         self.next_token()
 
-                        # Llamamos a parse_values_group para procesar los valores
+                       
                         node.add_child(self.parse_values_group())
 
         return node
@@ -54,13 +54,13 @@ class ParseInsert:
         if self.current_token[0] == '(': 
             node.add_child(TreeNode('(')) 
             self.next_token() 
-            node.add_child(self.parse_values())  # Procesamos el grupo de valores
+            node.add_child(self.parse_values()) 
 
             if self.current_token[0] == ')': 
                 node.add_child(TreeNode(')')) 
                 self.next_token()
 
-                # Verificamos si hay otro grupo de valores
+                
                 node.add_child(self.parse_values_group_prime())  
 
         return node
@@ -69,12 +69,12 @@ class ParseInsert:
         """ValuesGroupPrime -> ',' ValuesGroup | Epsilon"""
         node = TreeNode("ValuesGroupPrime")
 
-        if self.current_token and self.current_token[0] == ',':  # Si hay una coma, procesamos otro grupo de valores
+        if self.current_token and self.current_token[0] == ',':  
             node.add_child(TreeNode(','))
             self.next_token()
             node.add_child(self.parse_values_group())
         else:
-            node.add_child(TreeNode('Epsilon'))  # Producción vacía
+            node.add_child(TreeNode('Epsilon'))  
 
         return node
 
@@ -94,12 +94,12 @@ class ParseInsert:
         """ValuesPrime -> ',' Values | Epsilon"""
         node = TreeNode("ValuesPrime")
 
-        if self.current_token and self.current_token[0] == ',':  # Si hay una coma, procesamos más valores
+        if self.current_token and self.current_token[0] == ',':  
             node.add_child(TreeNode(','))
             self.next_token()
-            node.add_child(self.parse_values())  # Recursión correcta para más valores
+            node.add_child(self.parse_values()) 
         else:
-            node.add_child(TreeNode('Epsilon'))  # Producción vacía si no hay más valores
+            node.add_child(TreeNode('Epsilon')) 
 
         return node
 
@@ -107,7 +107,7 @@ class ParseInsert:
         """Value -> IDENTIFIER | NUMBER"""
         node = TreeNode("Value")
 
-        # Ignoramos comillas dobles
+        
         if self.current_token[0] == '"':
             self.next_token()
 
@@ -115,7 +115,7 @@ class ParseInsert:
                 node.add_child(TreeNode(self.current_token[0]))
                 self.next_token()
 
-            if self.current_token[0] == '"':  # Ignoramos la comilla final
+            if self.current_token[0] == '"':  
                 self.next_token()
         elif self.current_token[1] == 'IDENTIFIER' or self.current_token[1] == 'NUMBER':
             node.add_child(TreeNode(self.current_token[0]))

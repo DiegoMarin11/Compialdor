@@ -28,7 +28,7 @@ def process_word(word, automaton, keywords):
 
 
 
-    if state == 'd6' or state == 'd45':  # Acceptance states
+    if state == 'd6' or state == 'd4':  # Acceptance states
         if word in keywords:
             return (keywords[word], "KEYWORD")
         if word.isdigit():
