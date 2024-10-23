@@ -8,8 +8,6 @@ Operator -> "=" | ">" | "<"
 Column -> IDENTIFIER
 Table -> IDENTIFIER
 Value -> IDENTIFIER | NUMBER
-
-
 '''
 
 from Sintax.TreeNode import TreeNode

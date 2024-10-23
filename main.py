@@ -6,6 +6,8 @@ from Data_processing.ProcessString import *
 from prettytable import PrettyTable
 from Sintax.InsertParser import ParseInsert
 from Sintax.DeleteParser import ParseDelete
+from Sintax.SelectParser import ParseSelect
+from Sintax.UpdateParser import ParseUpdate
 def print_table(tokens):
     table = PrettyTable()
     table.field_names = ["String", "Type"]
@@ -41,13 +43,18 @@ if __name__ == "__main__":
             parse_tree.print_productions()
 
         if query_type == 'DELETE':
-            
             parse = ParseDelete(tokens)
             parse_tree = parse.parse_delete()
             parse_tree.print_productions()
+
         if query_type == 'UPDATE':
-            pass
+            parse = ParseUpdate(tokens)
+            parse_tree = parse.parse_update()
+            parse_tree.print_productions()
+            
         if query_type == 'SELECT':
-            pass
+            parse = ParseSelect(tokens)
+            parse_tree = parse.parse_select()
+            parse_tree.print_productions()
     
 
