@@ -10,8 +10,6 @@ Table -> IDENTIFIER
 Value -> IDENTIFIER | NUMBER
 '''
 
-from Sintax.TreeNode import TreeNode
-
 class ParseDelete:
     def __init__(self, tokens):
         self.tokens = tokens
@@ -25,21 +23,25 @@ class ParseDelete:
         """DeleteQuery -> DELETE FROM Table WhereClause"""
         node = TreeNode("DeleteQuery")
 
-        if self.current_token[0] == 'DELETE':
+        if self.current_token and self.current_token[0] == 'DELETE':
             node.add_child(TreeNode('DELETE'))
             self.next_token()
 
-            if self.current_token[0] == 'FROM':
+            if self.current_token and self.current_token[0] == 'FROM':
                 node.add_child(TreeNode('FROM'))
                 self.next_token()
 
-                if self.current_token[1] == 'IDENTIFIER':
+                if self.current_token and self.current_token[1] == 'IDENTIFIER':
                     table_node = TreeNode(f"Table({self.current_token[0]})")
                     node.add_child(table_node)
                     self.next_token()
-
-                   
                     node.add_child(self.parse_where_clause())
+                else:
+                    raise Exception("Error: Se esperaba un IDENTIFIER para la tabla")
+            else:
+                raise Exception("Error: Se esperaba 'FROM'")
+        else:
+            raise Exception("Error: Se esperaba 'DELETE'")
 
         return node
 
@@ -50,9 +52,9 @@ class ParseDelete:
         if self.current_token and self.current_token[0] == 'WHERE':
             node.add_child(TreeNode('WHERE'))
             self.next_token()
-            node.add_child(self.parse_condition())  
+            node.add_child(self.parse_condition())
         else:
-            node.add_child(TreeNode('Epsilon')) 
+            node.add_child(TreeNode('Epsilon'))
 
         return node
 
@@ -64,7 +66,6 @@ class ParseDelete:
         if self.current_token and self.current_token[0] in ['=', '>', '<']:
             node.add_child(TreeNode(self.current_token[0]))
             self.next_token()
-
             node.add_child(self.parse_value())
         else:
             raise Exception("Error: Se esperaba un operador =, >, <")
@@ -75,7 +76,7 @@ class ParseDelete:
         """Column -> IDENTIFIER"""
         node = TreeNode("Column")
 
-        if self.current_token[1] == 'IDENTIFIER':
+        if self.current_token and self.current_token[1] == 'IDENTIFIER':
             node.add_child(TreeNode(self.current_token[0]))
             self.next_token()
         else:
@@ -87,7 +88,7 @@ class ParseDelete:
         """Value -> IDENTIFIER | NUMBER"""
         node = TreeNode("Value")
 
-        if self.current_token[1] in ['IDENTIFIER', 'NUMBER']:
+        if self.current_token and self.current_token[1] in ['IDENTIFIER', 'NUMBER']:
             node.add_child(TreeNode(self.current_token[0]))
             self.next_token()
         else:

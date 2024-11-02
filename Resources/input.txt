@@ -1,1 +1,1 @@
-Borrar De alumnos Donde Edad < 18 
+Borrar De Alumnos Donde Edad > 18 

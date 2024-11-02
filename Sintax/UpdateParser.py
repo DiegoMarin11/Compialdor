@@ -13,9 +13,6 @@ Value -> IDENTIFIER | NUMBER
 
 '''
 
-
-
-
 class ParseUpdate:
     def __init__(self, tokens):
         self.tokens = tokens
@@ -29,51 +26,50 @@ class ParseUpdate:
         """UpdateQuery -> UPDATE Table SET Assignments WhereClause"""
         node = TreeNode("UpdateQuery")
 
-        if self.current_token[0] == 'UPDATE':
+        if self.current_token and self.current_token[0] == 'UPDATE':
             node.add_child(TreeNode('UPDATE'))
             self.next_token()
 
-            if self.current_token[1] == 'IDENTIFIER':
+            if self.current_token and self.current_token[1] == 'IDENTIFIER':
                 table_node = TreeNode(f"Table({self.current_token[0]})")
                 node.add_child(table_node)
                 self.next_token()
 
-                if self.current_token[0] == 'SET':
+                if self.current_token and self.current_token[0] == 'SET':
                     node.add_child(TreeNode('SET'))
                     self.next_token()
-
-                    
                     node.add_child(self.parse_assignments())
-
-                  
                     node.add_child(self.parse_where_clause())
+                else:
+                    raise Exception("Error: Se esperaba 'SET'")
+            else:
+                raise Exception("Error: Se esperaba un IDENTIFIER para la tabla")
+        else:
+            raise Exception("Error: Se esperaba 'UPDATE'")
 
         return node
 
     def parse_assignments(self):
         """Assignments -> Assignment | Assignment ',' Assignments"""
         node = TreeNode("Assignments")
-
-        node.add_child(self.parse_assignment())  
+        node.add_child(self.parse_assignment())
 
         if self.current_token and self.current_token[0] == ',':
             node.add_child(TreeNode(','))
             self.next_token()
-            node.add_child(self.parse_assignments())  
+            node.add_child(self.parse_assignments())
 
         return node
 
     def parse_assignment(self):
         """Assignment -> Column '=' Value"""
         node = TreeNode("Assignment")
-
         node.add_child(self.parse_column())
 
         if self.current_token and self.current_token[0] == '=':
             node.add_child(TreeNode('='))
             self.next_token()
-
-            node.add_child(self.parse_value()) 
+            node.add_child(self.parse_value())
         else:
             raise Exception("Error: Se esperaba un '=' para la asignación")
 
@@ -83,7 +79,7 @@ class ParseUpdate:
         """Column -> IDENTIFIER"""
         node = TreeNode("Column")
 
-        if self.current_token[1] == 'IDENTIFIER':
+        if self.current_token and self.current_token[1] == 'IDENTIFIER':
             node.add_child(TreeNode(self.current_token[0]))
             self.next_token()
         else:
@@ -98,24 +94,23 @@ class ParseUpdate:
         if self.current_token and self.current_token[0] == 'WHERE':
             node.add_child(TreeNode('WHERE'))
             self.next_token()
-            node.add_child(self.parse_condition()) 
+            node.add_child(self.parse_condition())
         else:
-            node.add_child(TreeNode('Epsilon'))  
+            node.add_child(TreeNode('Epsilon'))
 
         return node
 
     def parse_condition(self):
         """Condition -> Column Operator Value"""
         node = TreeNode("Condition")
-        node.add_child(self.parse_column())  
+        node.add_child(self.parse_column())
 
         if self.current_token and self.current_token[0] in ['=', '>', '<']:
-            node.add_child(TreeNode(self.current_token[0]))  
+            node.add_child(TreeNode(self.current_token[0]))
             self.next_token()
-
-            node.add_child(self.parse_value())  
+            node.add_child(self.parse_value())
         else:
-            raise Exception("Error: Se esperaba un operador(=, >, <")
+            raise Exception("Error: Se esperaba un operador (=, >, <)")
 
         return node
 
@@ -123,7 +118,7 @@ class ParseUpdate:
         """Value -> IDENTIFIER | NUMBER"""
         node = TreeNode("Value")
 
-        if self.current_token[1] in ['IDENTIFIER', 'NUMBER']:
+        if self.current_token and self.current_token[1] in ['IDENTIFIER', 'NUMBER']:
             node.add_child(TreeNode(self.current_token[0]))
             self.next_token()
         else:

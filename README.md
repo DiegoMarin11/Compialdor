@@ -125,7 +125,6 @@ Value -> IDENTIFIER | NUMBER
 
 **Posibles recursiones izquierdas posibles (Nueva propuesta):**
 
-De acuerdo a la tabla de first and follow podemos separar ValuesGroup Y Values
 
 INSERT: \
 InsertQuery -> INSERT INTO Table Values ValesGroup \

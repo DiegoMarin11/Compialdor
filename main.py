@@ -35,7 +35,7 @@ if __name__ == "__main__":
                 
         print(tokens)
         query_type = tokens[0][0]
-        print(query_type)
+        #print(query_type)
 
         if query_type == 'INSERT':
             parse = ParseInsert(tokens)

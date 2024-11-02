@@ -24,44 +24,51 @@ class ParseInsert:
         """InsertQuery -> INSERT INTO Table VALUES ValuesGroup"""
         node = TreeNode("InsertQuery")
 
-        if self.current_token[0] == 'INSERT':
+        if self.current_token and self.current_token[0] == 'INSERT':
             node.add_child(TreeNode(self.current_token[0]))
             self.next_token()
 
-            if self.current_token[0] == 'INTO': 
+            if self.current_token and self.current_token[0] == 'INTO': 
                 node.add_child(TreeNode('INTO'))
                 self.next_token()
 
-                if self.current_token[1] == 'IDENTIFIER': 
+                if self.current_token and self.current_token[1] == 'IDENTIFIER': 
                     table_node = TreeNode(f"Table({self.current_token[0]})") 
                     node.add_child(table_node)
                     self.next_token()
 
-                    if self.current_token[0] == 'VALUES': 
+                    if self.current_token and self.current_token[0] == 'VALUES': 
                         node.add_child(TreeNode('VALUES'))
                         self.next_token()
-
-                       
                         node.add_child(self.parse_values_group())
+                    else:
+                        raise Exception("Error: Se esperaba 'VALUES'")
+                else:
+                    raise Exception("Error: Se esperaba un IDENTIFIER para la tabla")
+            else:
+                raise Exception("Error: Se esperaba 'INTO'")
+        else:
+            raise Exception("Error: Se esperaba 'INSERT'")
 
         return node
 
     def parse_values_group(self): 
         """ValuesGroup -> '(' Values ')' ValuesGroupPrime"""
-
         node = TreeNode("ValuesGroup")
 
-        if self.current_token[0] == '(': 
+        if self.current_token and self.current_token[0] == '(': 
             node.add_child(TreeNode('(')) 
             self.next_token() 
             node.add_child(self.parse_values()) 
 
-            if self.current_token[0] == ')': 
+            if self.current_token and self.current_token[0] == ')': 
                 node.add_child(TreeNode(')')) 
                 self.next_token()
-
-                
                 node.add_child(self.parse_values_group_prime())  
+            else:
+                raise Exception("Error: Se esperaba ')'")
+        else:
+            raise Exception("Error: Se esperaba '('")
 
         return node
 
@@ -81,11 +88,7 @@ class ParseInsert:
     def parse_values(self): 
         """Values -> Value ValuesPrime"""
         node = TreeNode("Values")
-
-
         node.add_child(self.parse_value())  
-
-   
         node.add_child(self.parse_values_prime())
 
         return node
@@ -107,21 +110,23 @@ class ParseInsert:
         """Value -> IDENTIFIER | NUMBER"""
         node = TreeNode("Value")
 
-        
-        if self.current_token[0] == '"':
+        if self.current_token and self.current_token[0] == '"':
             self.next_token()
 
-            if self.current_token[1] == 'IDENTIFIER' or self.current_token[1] == 'NUMBER':
+            if self.current_token and (self.current_token[1] == 'IDENTIFIER' or self.current_token[1] == 'NUMBER'):
                 node.add_child(TreeNode(self.current_token[0]))
                 self.next_token()
+            else:
+                raise Exception("Error: Se esperaba un IDENTIFIER o NUMBER entre comillas")
 
-            if self.current_token[0] == '"':  
+            if self.current_token and self.current_token[0] == '"':  
                 self.next_token()
-        elif self.current_token[1] == 'IDENTIFIER' or self.current_token[1] == 'NUMBER':
+            else:
+                raise Exception("Error: Se esperaba un cierre de comillas")
+        elif self.current_token and (self.current_token[1] == 'IDENTIFIER' or self.current_token[1] == 'NUMBER'):
             node.add_child(TreeNode(self.current_token[0]))
             self.next_token()
         else:
             raise Exception("Error: Se esperaba un IDENTIFIER o NUMBER")
 
         return node
-
