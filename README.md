@@ -86,45 +86,7 @@
 
 - **Análisis sintáctico:**
 
-Primera versión de la gramática:
-
-InsertQuery -> INSERT INTO Table VALUES ValuesGroup \
-ValuesGroup -> "(" Values ")" | "(" Values ")" "," ValuesGroup \
-Values -> Value | Value "," Values \
-Table -> IDENTIFIER \
-Value -> IDENTIFIER | NUMBER
-
-DeleteQuery -> DELETE FROM Table WhereClause \
-WhereClause -> WHERE Condition | Epsilon \
-Condition -> Column Operator Value \
-Operator -> "=" | ">" | "<" \
-Column -> IDENTIFIER \ 
-Table -> IDENTIFIER \
-Value -> IDENTIFIER | NUMBER 
-
-SelectQuery -> SELECT Columns FROM Table WhereClause \
-Columns -> * | ColumnList \
-ColumnList -> Column | Column "," ColumnList \
-WhereClause -> WHERE Condition | Epsilon \ 
-Condition -> Column Operator Value \
-Operator -> "=" | ">" | "<" \
-Column -> IDENTIFIER \
-Table -> IDENTIFIER \
-Value -> IDENTIFIER | NUMBER 
-
-UpdateQuery -> UPDATE Table SET Assignments WhereClause \
-Assignments -> Assignment | Assignment "," Assignments \
-Assignment -> Column "=" Value \
-WhereClause -> WHERE Condition | Epsilon \
-Condition -> Column Operator Value \
-Operator -> "=" | ">" | "<" \
-Column -> IDENTIFIER \
-Table -> IDENTIFIER \
-Value -> IDENTIFIER | NUMBER
-
-
-**Posibles recursiones izquierdas posibles (Nueva propuesta):**
-
+GRAMATICA
 
 INSERT: \
 InsertQuery -> INSERT INTO Table Values ValesGroup \
@@ -135,7 +97,7 @@ ValuePrime -> “,” Value | Epsilon \
 Table -> IDENTIFIER \
 VALUE -> IDENTIFIER | NUMBER
 
-DELETE no necesita cambios.
+DELETE:
 
 DeleteQuery -> DELETE FROM Table WhereClause \
 WhereClause -> WHERE Condition | Epsilon \
@@ -172,7 +134,43 @@ Table -> IDENTIFIER \
 Value -> IDENTIFIER | NUMBER
 
 
+La forma de implementacion del parser consiste en hacer un metodo para cada regla en donde se llama a cada metodo conforme va recibiendo los tokens.
 - **Ejemplos:**
+
+INSERT Query:      
+Entrada: INSERT INTO Users VALUES (John, 25)
+
+InsertQuery -> INSERT INTO Table ValuesGroup \
+Table -> IDENTIFIER (Users)      \
+ValuesGroup -> ( Values )    \
+Values -> Value ValuePrime \
+Value -> IDENTIFIER (John) \
+ValuePrime -> , Value    \
+Value -> NUMBER (25)  \
+ValuesGroupPrime -> Epsilon
+
+DELETE Query:   \
+Entrada: DELETE FROM Logs \
+DeleteQuery -> DELETE FROM Table WhereClause\
+Table -> IDENTIFIER (Logs)\
+WhereClause -> Epsilon
+
+SELECT QUERY: SELECT * FROM Customers\
+SelectQuery -> SELECT Columns FROM Table WhereClause\
+Columns -> *\
+Table -> IDENTIFIER (Customers)\
+WhereClause -> Epsilon
+
+
+UPDATE QUERY: UPDATE Products SET price = 50\
+UpdateQuery -> UPDATE Table SET Assignments WhereClause\
+Table -> IDENTIFIER (Products)\
+Assignments -> Assignment AssignmentPrime\
+Assignment -> Column = Value\
+Column -> IDENTIFIER (price)\
+Value -> NUMBER (50)\
+AssignmentPrime -> Epsilon\
+WhereClause -> Epsilon
 
 ## Análisis Semántico
 
