@@ -33,12 +33,15 @@ class ParseInsert:
                 self.next_token()
 
                 if self.current_token and self.current_token[1] == 'IDENTIFIER': 
-                    table_node = TreeNode(f"Table({self.current_token[0]})") 
+                    table_node = TreeNode("Table")
                     node.add_child(table_node)
-                    self.next_token()
 
-                    if self.current_token and self.current_token[0] == 'VALUES': 
-                        node.add_child(TreeNode('VALUES'))
+                    table_name_node = TreeNode(self.current_token[0]) 
+                    table_node.add_child(table_name_node)
+                    self.next_token()
+                    print(self.current_token[0])
+                    if self.current_token and self.current_token[0] == 'Values': 
+                        node.add_child(TreeNode('Values'))
                         self.next_token()
                         node.add_child(self.parse_values_group())
                     else:
@@ -57,12 +60,12 @@ class ParseInsert:
         node = TreeNode("ValuesGroup")
 
         if self.current_token and self.current_token[0] == '(': 
-            node.add_child(TreeNode('(')) 
+            #node.add_child(TreeNode('(')) 
             self.next_token() 
             node.add_child(self.parse_values()) 
 
             if self.current_token and self.current_token[0] == ')': 
-                node.add_child(TreeNode(')')) 
+                #node.add_child(TreeNode(')')) 
                 self.next_token()
                 node.add_child(self.parse_values_group_prime())  
             else:

@@ -134,7 +134,8 @@ Table -> IDENTIFIER \
 Value -> IDENTIFIER | NUMBER
 
 
-La forma de implementacion del parser consiste en hacer un metodo para cada regla en donde se llama a cada metodo conforme va recibiendo los tokens.
+La forma de implementacion del parser consiste en hacer un metodo para cada regla en donde se llama a cada metodo conforme va recibiendo los tokens. Para saber que parser vamos a usar tenemos que leer el primer token de la query.
+
 - **Ejemplos:**
 
 INSERT Query:      

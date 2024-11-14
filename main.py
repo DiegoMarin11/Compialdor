@@ -8,6 +8,12 @@ from Sintax.InsertParser import ParseInsert
 from Sintax.DeleteParser import ParseDelete
 from Sintax.SelectParser import ParseSelect
 from Sintax.UpdateParser import ParseUpdate
+from Semantic.SemanticDelete import SemanticDelete
+from Semantic.SemanticSelect import SemanticSelect
+from Semantic.SemanticInsert import SemanticInsert
+
+from Resources.Scheme import esquema_base_datos
+
 def print_table(tokens):
     table = PrettyTable()
     table.field_names = ["String", "Type"]
@@ -56,5 +62,25 @@ if __name__ == "__main__":
             parse = ParseSelect(tokens)
             parse_tree = parse.parse_select()
             parse_tree.print_productions()
+
+        #Analizador semantico
+
+        if query_type == 'INSERT':
+            parse = SemanticInsert(esquema_base_datos)  
+            parse.analizar(parse_tree)  
+
+        if query_type == 'DELETE':
+    
+            parse = SemanticDelete(esquema_base_datos)  
+            parse.analizar(parse_tree)  
+
+        if query_type == 'UPDATE':
+            parse = SemanticDelete(parse_tree)
+            semantic = parse.parse_update()
+            semantic.analizar()
+            
+        if query_type == 'SELECT':
+            parse = SemanticSelect(esquema_base_datos)  
+            parse.analizar(parse_tree)  
     
 

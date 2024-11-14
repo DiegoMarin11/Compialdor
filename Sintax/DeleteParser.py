@@ -32,8 +32,12 @@ class ParseDelete:
                 self.next_token()
 
                 if self.current_token and self.current_token[1] == 'IDENTIFIER':
-                    table_node = TreeNode(f"Table({self.current_token[0]})")
+                    table_node = TreeNode("Table")
                     node.add_child(table_node)
+                    
+                    table_name_node = TreeNode(self.current_token[0]) 
+                    table_node.add_child(table_name_node)
+                    
                     self.next_token()
                     node.add_child(self.parse_where_clause())
                 else:

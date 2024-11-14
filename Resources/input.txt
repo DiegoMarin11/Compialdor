@@ -1,1 +1,1 @@
-Borrar De Alumnos Donde Edad > 18 
+Insertar A clientes Values (2), (pepe), (edad), (mail)
