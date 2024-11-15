@@ -11,6 +11,7 @@ from Sintax.UpdateParser import ParseUpdate
 from Semantic.SemanticDelete import SemanticDelete
 from Semantic.SemanticSelect import SemanticSelect
 from Semantic.SemanticInsert import SemanticInsert
+from Semantic.SemanticUpdate import SemanticUpdate
 
 from Resources.Scheme import esquema_base_datos
 
@@ -70,14 +71,14 @@ if __name__ == "__main__":
             parse.analizar(parse_tree)  
 
         if query_type == 'DELETE':
-    
+      
             parse = SemanticDelete(esquema_base_datos)  
             parse.analizar(parse_tree)  
 
         if query_type == 'UPDATE':
-            parse = SemanticDelete(parse_tree)
-            semantic = parse.parse_update()
-            semantic.analizar()
+            parse = SemanticUpdate(esquema_base_datos)  
+            parse.analizar(parse_tree)  
+    
             
         if query_type == 'SELECT':
             parse = SemanticSelect(esquema_base_datos)  

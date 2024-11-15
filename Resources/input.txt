@@ -1,1 +1,1 @@
-Insertar A clientes Values (2), (pepe), (edad), (mail)
+Dame Todos De clientes
