@@ -4,14 +4,14 @@ class SemanticDelete:
     def __init__(self, esquema_base_datos):
         self.esquema_base_datos = esquema_base_datos
 
-    def analizar(self, node):
+    def analize(self, node):
         if isinstance(node, TreeNode):
             
-            print("Top tree ",node.value)
+            #print("Top tree ",node.value)
             if node.value == 'DeleteQuery':
                 self.analizar_delete_query(node)
 
-    def analizar_delete_query(self, node):
+    def analize_delete_query(self, node):
         
         table_node = next((child for child in node.children if child.value == "Table"), None)
         if not table_node:
@@ -26,14 +26,14 @@ class SemanticDelete:
         
         where_clause_node = next((child for child in node.children if child.value == 'WhereClause'), None)
         if where_clause_node:
-            self.analizar_where_clause(where_clause_node, table_name)
+            self.analize_where_clause(where_clause_node, table_name)
 
-    def analizar_where_clause(self, where_clause_node, table_name):
+    def analize_where_clause(self, where_clause_node, table_name):
         condition_node = next((child for child in where_clause_node.children if child.value == 'Condition'), None)
         if condition_node:
-            self.analizar_condition(condition_node, table_name)
+            self.analize_condition(condition_node, table_name)
 
-    def analizar_condition(self, condition_node, table_name):
+    def analize_condition(self, condition_node, table_name):
         
         column_node = next((child for child in condition_node.children if child.value == "Column"), None)
         if column_node:
@@ -48,5 +48,5 @@ class SemanticDelete:
         value_node = next((child for child in condition_node.children if child.value == "Value"), None)
         if value_node:
             value = value_node.children[0].value 
-            print(f"Valor en la condición: {value}")
+            #print(f"Valor en la condición: {value}")
             pass

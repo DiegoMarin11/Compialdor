@@ -4,12 +4,12 @@ class SemanticInsert:
     def __init__(self, esquema_base_datos):
         self.esquema_base_datos = esquema_base_datos
 
-    def analizar(self, node):
+    def analize(self, node):
       
         if isinstance(node, TreeNode) and node.value == 'InsertQuery':
             self.analizar_insert_query(node)
 
-    def analizar_insert_query(self, node):
+    def analize_insert_query(self, node):
       
         table_node = next((child for child in node.children if child.value == 'Table'), None)
         if not table_node:
@@ -21,7 +21,7 @@ class SemanticInsert:
         
         print(f"Tabla '{table_name}' encontrada en la base de datos.")
 
-        value_nodes = self.buscar_values(node)
+        value_nodes = self.search_values(node)
 
        
         num_columns = len(self.esquema_base_datos[table_name])  
@@ -39,10 +39,10 @@ class SemanticInsert:
             column_type = self.esquema_base_datos[table_name][column_name] 
 
             # Verificar tipo de datos
-            self.analizar_tipo(value, column_type, column_name)
+            self.analize_tipo(value, column_type, column_name)
             current_column += 1
 
-    def buscar_values(self, node):
+    def search_values(self, node):
         """Recorre el árbol y busca todos los nodos 'Value'"""
         value_nodes = []
 
@@ -55,14 +55,14 @@ class SemanticInsert:
 
         return value_nodes
 
-    def analizar_tipo(self, value, column_type, column_name):
+    def analize_tipo(self, value, column_type, column_name):
             """Verifica que el tipo de dato sea compatible con el tipo de la columna"""
            
             if (value.isdigit()):
-                print(f"Valor numérico: {value} - Tipo esperado: {column_type}")
+                print(f"Valor numérico: {value} ")
          
             elif isinstance(value, str):
-                print(f"Valor de cadena: '{value}' - Tipo esperado: VARCHAR (o similar)")
+                print(f"Valor de cadena: '{value}' ")
 
             else:
                 raise Exception(f"Error: Tipo de valor '{value}' no reconocido para la columna '{column_name}'.")

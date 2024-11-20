@@ -51,7 +51,7 @@ class SemanticUpdate:
                     column_type = self.esquema_base_datos[table_name][column_name]
                     self.analizar_tipo(value, column_type, column_name)
 
-    def analizar_condition(self, condition_node, table_name):
+    def analize_condition(self, condition_node, table_name):
         
         column_node = next((child for child in condition_node.children if child.value == "Column"), None)
         if not column_node:
@@ -68,14 +68,13 @@ class SemanticUpdate:
         if operator_node and value_node:
             value = value_node.children[0].value
             column_type = self.esquema_base_datos[table_name][column_name]
-            self.analizar_tipo(value, column_type, column_name)
+            self.analizar_tipo(value, column_type)
 
-    def analizar_tipo(self, value, column_type, column_name):
-    
+    def analize_tipo(self, value):
         
         if isinstance(value, (int)):
-            print(f"Valor numérico: {value} - Tipo esperado: {column_type}")
+            print(f"Valor numérico: {value} ")
    
         elif isinstance(value, str):
-            print(f"Valor de cadena: '{value}' - Tipo esperado: VARCHAR (o similar)")
+            print(f"Valor de cadena: '{value}'  ")
     
