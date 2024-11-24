@@ -1,1 +1,1 @@
-Dame Todos De clientes
+Actualizar productos El preci = 75 , stock = stock - 1 Donde id > 1

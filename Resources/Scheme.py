@@ -8,7 +8,7 @@ esquema_base_datos = {
     "productos": {
         "id": "INT",
         "nombre": "VARCHAR",
-        "precio": "DECIMAL",
+        "precio": "INT",
         "stock": "INT"
     }
 }

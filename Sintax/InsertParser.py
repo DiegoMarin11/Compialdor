@@ -40,7 +40,7 @@ class ParseInsert:
                     table_node.add_child(table_name_node)
                     self.next_token()
                     print(self.current_token[0])
-                    if self.current_token and self.current_token[0] == 'Values': 
+                    if self.current_token and self.current_token[0] == 'VALUES': 
                         node.add_child(TreeNode('Values'))
                         self.next_token()
                         node.add_child(self.parse_values_group())

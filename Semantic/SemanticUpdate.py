@@ -4,11 +4,11 @@ class SemanticUpdate:
     def __init__(self, esquema_base_datos):
         self.esquema_base_datos = esquema_base_datos
 
-    def analizar(self, node):
+    def analize(self, node):
         if isinstance(node, TreeNode) and node.value == 'UpdateQuery':
-            self.analizar_update_query(node)
+            self.analize_update_query(node)
 
-    def analizar_update_query(self, node):
+    def analize_update_query(self, node):
       
         table_node = next((child for child in node.children if child.value == 'Table'), None)
         if not table_node:
@@ -23,16 +23,18 @@ class SemanticUpdate:
  
         assignments_node = next((child for child in node.children if child.value == 'Assignments'), None)
         if assignments_node:
-            self.analizar_assignments(assignments_node, table_name)
+            self.analize_assignments(assignments_node, table_name)
 
      
         where_clause_node = next((child for child in node.children if child.value == 'WhereClause'), None)
-        if where_clause_node:
+        if where_clause_node and len(where_clause_node.children) > 1:
             condition_node = where_clause_node.children[1] 
             if condition_node:
-                self.analizar_condition(condition_node, table_name)
+                self.analize_condition(condition_node, table_name)
+        else:
+            print("falta condicional")
 
-    def analizar_assignments(self, assignments_node, table_name):
+    def analize_assignments(self, assignments_node, table_name):
       
         for assignment_node in assignments_node.children:
             if assignment_node.value == 'Assignment':
@@ -49,7 +51,7 @@ class SemanticUpdate:
 
                     
                     column_type = self.esquema_base_datos[table_name][column_name]
-                    self.analizar_tipo(value, column_type, column_name)
+                    self.analize_tipo(value, column_type, column_name)
 
     def analize_condition(self, condition_node, table_name):
         
@@ -68,13 +70,14 @@ class SemanticUpdate:
         if operator_node and value_node:
             value = value_node.children[0].value
             column_type = self.esquema_base_datos[table_name][column_name]
-            self.analizar_tipo(value, column_type)
+            self.analize_tipo(value, column_type)
 
-    def analize_tipo(self, value):
+    def analize_tipo(self, value, column_type, column_name = None):
         
-        if isinstance(value, (int)):
-            print(f"Valor numérico: {value} ")
-   
-        elif isinstance(value, str):
-            print(f"Valor de cadena: '{value}'  ")
+        if column_type == "INT":
+            if not isinstance(value, str) and value.isdigit():
+                raise Exception(f"Error: El valor '{value}' no es un numero entero esperado para la columna '{column_name}'.")
+        elif column_type in ["VARCHAR"] and not isinstance(value, str):
+            raise Exception(f"Error: El valor '{value}' no es una cadena esperada para la columna '{column_name}'.")
+      
     

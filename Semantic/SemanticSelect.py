@@ -7,18 +7,18 @@ class SemanticSelect:
 
     def analize(self, node):
         if isinstance(node, TreeNode) and node.value == 'SelectQuery':
-            self.analizar_select_query(node)
+            self.analize_select_query(node)
 
     def analize_select_query(self, node):
   
         columns_node = next((child for child in node.children if child.value == 'Columns'), None)
         if columns_node:
-            self.analizar_columns(columns_node)
+            self.analize_columns(columns_node)
 
     
         table_node = next((child for child in node.children if child.value == 'Table'), None)
         if not table_node:
-            raise Exception("Error: No se encontró la tabla en la consulta SELECT.")
+            raise Exception("Error: No se encontro la tabla en la consulta SELECT.")
         
         table_name = table_node.children[0].value 
         if table_name not in self.esquema_base_datos:
@@ -37,9 +37,13 @@ class SemanticSelect:
             if column_node.value == '*':
                 #print("Se seleccionaron todas las columnas.")
                 continue 
+            elif column_node.value == 'ColumnList':
+                # Ignorar `ColumnList` explícitamente.
+                #print("Se ignoró ColumnList en la consulta.")
+                continue
             else:
                 
-                self.analizar_column(column_node)
+                self.analize_column(column_node)
 
     def analize_column(self, column_node):
         column_name = column_node.value 
@@ -48,7 +52,7 @@ class SemanticSelect:
         found = False
         for table_name, columns in self.esquema_base_datos.items():
             if column_name in columns:
-                print(f"Columna '{column_name}' válida en la tabla '{table_name}'.")
+                print(f"Columna '{column_name}' valida en la tabla '{table_name}'.")
                 found = True
                 break
 
@@ -74,5 +78,5 @@ class SemanticSelect:
         value_node = next((child for child in condition_node.children if child.value == "Value"), None)
         if value_node:
             value = value_node.children[0].value  
-            print(f"Valor en la condición: {value}")
+            print(f"Valor en la condicion: {value}")
             pass

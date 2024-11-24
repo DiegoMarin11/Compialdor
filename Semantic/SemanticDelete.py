@@ -9,7 +9,7 @@ class SemanticDelete:
             
             #print("Top tree ",node.value)
             if node.value == 'DeleteQuery':
-                self.analizar_delete_query(node)
+                self.analize_delete_query(node)
 
     def analize_delete_query(self, node):
         

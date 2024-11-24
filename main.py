@@ -12,7 +12,7 @@ from Semantic.SemanticDelete import SemanticDelete
 from Semantic.SemanticSelect import SemanticSelect
 from Semantic.SemanticInsert import SemanticInsert
 from Semantic.SemanticUpdate import SemanticUpdate
-
+from copy import deepcopy
 from Resources.Scheme import esquema_base_datos
 
 def print_table(tokens):
@@ -36,10 +36,10 @@ if __name__ == "__main__":
         processed_string = extract_words(string_no_spaces)
         #print(processed_string)
         tokens = tokenize(processed_string, Automaton, keywords)
-
+        tokens_aux = deepcopy(tokens) 
         #print_table(tokens)
-
-                
+        input_correctness = False
+               
         print(tokens)
         query_type = tokens[0][0]
         #print(query_type)
@@ -48,7 +48,7 @@ if __name__ == "__main__":
             parse = ParseInsert(tokens)
             parse_tree = parse.parse_insert()
             parse_tree.print_productions()
-
+            
         if query_type == 'DELETE':
             parse = ParseDelete(tokens)
             parse_tree = parse.parse_delete()
@@ -68,20 +68,29 @@ if __name__ == "__main__":
 
         if query_type == 'INSERT':
             parse = SemanticInsert(esquema_base_datos)  
-            parse.analizar(parse_tree)  
-
+            parse.analize(parse_tree)  
+            input_correctness = True
         if query_type == 'DELETE':
       
             parse = SemanticDelete(esquema_base_datos)  
-            parse.analizar(parse_tree)  
-
+            parse.analize(parse_tree)  
+            input_correctness = True    
         if query_type == 'UPDATE':
             parse = SemanticUpdate(esquema_base_datos)  
-            parse.analizar(parse_tree)  
-    
+            parse.analize(parse_tree)  
+            input_correctness = True
             
         if query_type == 'SELECT':
             parse = SemanticSelect(esquema_base_datos)  
-            parse.analizar(parse_tree)  
+            parse.analize(parse_tree)  
+            input_correctness = True
+            
+
+    if input_correctness:
+        output = ""
+        for token, token_type in tokens_aux:
+            
+            output+= token + " "
+        print(f"{output}")
     
 

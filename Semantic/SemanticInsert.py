@@ -7,7 +7,7 @@ class SemanticInsert:
     def analize(self, node):
       
         if isinstance(node, TreeNode) and node.value == 'InsertQuery':
-            self.analizar_insert_query(node)
+            self.analize_insert_query(node)
 
     def analize_insert_query(self, node):
       
@@ -51,7 +51,7 @@ class SemanticInsert:
                 value_nodes.append(node)
             else:
                 for child in node.children:
-                    value_nodes.extend(self.buscar_values(child)) 
+                    value_nodes.extend(self.search_values(child)) 
 
         return value_nodes
 
