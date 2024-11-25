@@ -15,7 +15,7 @@ class SemanticDelete:
         
         table_node = next((child for child in node.children if child.value == "Table"), None)
         if not table_node:
-            raise Exception("Error: No se encontró la tabla en la consulta DELETE.")
+            raise Exception("Error: No se encontro la tabla en la consulta DELETE.")
         
         table_name = table_node.children[0].value  
         if table_name not in self.esquema_base_datos:
@@ -48,5 +48,5 @@ class SemanticDelete:
         value_node = next((child for child in condition_node.children if child.value == "Value"), None)
         if value_node:
             value = value_node.children[0].value 
-            #print(f"Valor en la condición: {value}")
+            #print(f"Valor en la condicion: {value}")
             pass

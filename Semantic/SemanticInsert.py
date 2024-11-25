@@ -13,7 +13,7 @@ class SemanticInsert:
       
         table_node = next((child for child in node.children if child.value == 'Table'), None)
         if not table_node:
-            raise Exception("Error: No se encontró la tabla en la consulta INSERT.")
+            raise Exception("Error: No se encontro la tabla en la consulta INSERT.")
         
         table_name = table_node.children[0].value 
         if table_name not in self.esquema_base_datos:
@@ -27,7 +27,7 @@ class SemanticInsert:
         num_columns = len(self.esquema_base_datos[table_name])  
         total_values = len(value_nodes)
         if total_values != num_columns:
-            raise Exception(f"Error: El número de valores ({total_values}) no coincide con el número de columnas ({num_columns}) en la tabla '{table_name}'.")
+            raise Exception(f"Error: El numero de valores ({total_values}) no coincide con el numero de columnas ({num_columns}) en la tabla '{table_name}'.")
 
       
         columns = list(self.esquema_base_datos[table_name].keys())
