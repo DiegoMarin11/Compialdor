@@ -40,29 +40,35 @@ if __name__ == "__main__":
         #print_table(tokens)
         input_correctness = False
                
-        print(tokens)
+        #print(tokens)
         query_type = tokens[0][0]
         #print(query_type)
 
         if query_type == 'INSERT':
             parse = ParseInsert(tokens)
             parse_tree = parse.parse_insert()
-            parse_tree.print_productions()
+            #.print_productions()
+            print("Estructura sintactica correcta!")
             
         if query_type == 'DELETE':
             parse = ParseDelete(tokens)
             parse_tree = parse.parse_delete()
-            parse_tree.print_productions()
+            #parse_tree.print_productions()
+            print("Estructura sintactica correcta!")
 
         if query_type == 'UPDATE':
             parse = ParseUpdate(tokens)
             parse_tree = parse.parse_update()
-            parse_tree.print_productions()
+            #parse_tree.print_productions()
+            print("Estructura sintactica correcta!")
             
         if query_type == 'SELECT':
             parse = ParseSelect(tokens)
             parse_tree = parse.parse_select()
-            parse_tree.print_productions()
+            #parse_tree.print_productions()
+            print("Estructura sintactica correcta!")
+
+        
 
         #Analizador semantico
 
@@ -70,23 +76,29 @@ if __name__ == "__main__":
             parse = SemanticInsert(esquema_base_datos)  
             parse.analize(parse_tree)  
             input_correctness = True
+            print("Estructura semantica correcta!")
         if query_type == 'DELETE':
       
             parse = SemanticDelete(esquema_base_datos)  
             parse.analize(parse_tree)  
             input_correctness = True    
+            print("Estructura sintactica correcta!")
         if query_type == 'UPDATE':
             parse = SemanticUpdate(esquema_base_datos)  
             parse.analize(parse_tree)  
             input_correctness = True
+            print("Estructura sintactica correcta!")
             
         if query_type == 'SELECT':
             parse = SemanticSelect(esquema_base_datos)  
             parse.analize(parse_tree)  
             input_correctness = True
+            print("Estructura sintactica correcta!")
             
 
+
     if input_correctness:
+        print("Consulta SQL generada:")
         output = ""
         for token, token_type in tokens_aux:
             

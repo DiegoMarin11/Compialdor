@@ -72,12 +72,20 @@ class SemanticUpdate:
             column_type = self.esquema_base_datos[table_name][column_name]
             self.analize_tipo(value, column_type)
 
-    def analize_tipo(self, value, column_type, column_name = None):
-        
+    def analize_tipo(self, value, column_type, column_name=None):
         if column_type == "INT":
-            if not isinstance(value, str) and value.isdigit():
-                raise Exception(f"Error: El valor '{value}' no es un numero entero esperado para la columna '{column_name}'.")
-        elif column_type in ["VARCHAR"] and not isinstance(value, str):
-            raise Exception(f"Error: El valor '{value}' no es una cadena esperada para la columna '{column_name}'.")
-      
-    
+            if isinstance(value, str):
+                if not value.isdigit():
+                    raise Exception(f"Error: El valor '{value}' no es un número entero esperado para la columna '{column_name}'.")
+            else:
+                if not isinstance(value, int):
+                    raise Exception(f"Error: El valor '{value}' no es un número entero esperado para la columna '{column_name}'.")
+
+        elif column_type == "VARCHAR":
+            if not isinstance(value, str):
+                raise Exception(f"Error: El valor '{value}' no es una cadena esperada para la columna '{column_name}'.")
+            if value.isidentifier():
+                raise Exception(f"Error: El valor '{value}' parece un identificador, no una cadena esperada para la columna '{column_name}'.")
+
+        else:
+            raise Exception(f"Error: Tipo de columna '{column_type}' no soportado.")

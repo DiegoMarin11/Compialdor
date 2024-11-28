@@ -48,7 +48,7 @@ class ParseSelect:
                 else:
                     raise Exception("Error: Se esperaba un IDENTIFIER para la tabla")
             else:
-                raise Exception("Error: Se esperaba 'FROM'")
+                raise Exception("Error: Se esperaba 'De'")
         else:
             raise Exception("Error: Se esperaba 'SELECT'")
 
