@@ -191,14 +191,14 @@ Para probar el compilador simplemente diseñamos una consulta de cada tipo para 
 - Input: Insertar A clientes Valores (1, "Juan", 30, "juan.perez@gmail.com")
 - Input: Dame id, nombre De clientes Donde edad > 18
 - Input: Borrar De productos Donde precio > 50
-- Input: Actualizar productos El precio = 75 , stock = stock Donde id > 1
+- Input: Actualizar productos El precio = 75 , stock = 4 Donde id > 1
 
 - **Resultados obtenidos:**
 Cada resultado de cada consulta respectivamente:
 - Output: INSERT INTO clientes VALUES ( 1 , " Juan " , 30 , " juan.perez@gmail.com " )
 - Output: SELECT id , nombre FROM clientes WHERE edad > 18
 - Output: DELETE FROM productos WHERE precio > 50
-- Output: UPDATE productos SET precio = 75 , stock = stock WHERE id > 1
+- Output: UPDATE productos SET precio = 75 , stock = 4 WHERE id > 1
 - **Casos de prueba específicos:**
 - Input: Dame Todos De clientes
 - Output: SELECT * FROM clientes
