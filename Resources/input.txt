@@ -1,1 +1,1 @@
-Actualizar productos El precio = 2 , stock = stock - 1 Donde id = 1
+Actualizar productos El precio = 89 , stock = stock Donde id = 1

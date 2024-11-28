@@ -93,11 +93,13 @@ class ParseUpdate:
     def parse_where_clause(self):
         """WhereClause -> WHERE Condition | Epsilon"""
         node = TreeNode("WhereClause")
-
+        #print(self.current_token[0], "aaa")
         if self.current_token and self.current_token[0] == 'WHERE':
             node.add_child(TreeNode('WHERE'))
             self.next_token()
             node.add_child(self.parse_condition())
+        elif self.current_token[1] == "IDENTIFIER":
+            raise Exception("Tal vez se referia a 'Donde'?")
         else:
             node.add_child(TreeNode('Epsilon'))
 
@@ -105,6 +107,7 @@ class ParseUpdate:
 
     def parse_condition(self):
         """Condition -> Column Operator Value"""
+        #print(self.current_token[0], " aaa")
         node = TreeNode("Condition")
         node.add_child(self.parse_column())
 
