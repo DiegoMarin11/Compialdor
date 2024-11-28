@@ -1,1 +1,1 @@
-Actualizar productos El precio = 89 , stock = stock Donde id = 1
+ Dame id, nombre De clientes

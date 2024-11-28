@@ -43,7 +43,6 @@ class SemanticInsert:
             current_column += 1
 
     def search_values(self, node):
-        """Recorre el árbol y busca todos los nodos 'Value'"""
         value_nodes = []
 
         if isinstance(node, TreeNode):
@@ -56,13 +55,22 @@ class SemanticInsert:
         return value_nodes
 
     def analize_tipo(self, value, column_type, column_name):
-            """Verifica que el tipo de dato sea compatible con el tipo de la columna"""
+        if column_type == "INT":
            
-            if (value.isdigit()):
-                print(f"Valor numérico: {value} ")
-         
-            elif isinstance(value, str):
-                print(f"Valor de cadena: '{value}' ")
+            if isinstance(value, str) and not value.isdigit():
+                raise Exception(f"Error: El valor '{value}' no es un numero entero valido para la columna '{column_name}'.")
+            elif not isinstance(value, (int, str)):
+                raise Exception(f"Error: El valor '{value}' no es vqlido para la columna '{column_name}' de tipo INT.")
 
-            else:
-                raise Exception(f"Error: Tipo de valor '{value}' no reconocido para la columna '{column_name}'.")
+        elif column_type == "VARCHAR":
+          
+            if not isinstance(value, str):
+                raise Exception(f"Error: El valor '{value}' no es una cadena vqlida para la columna '{column_name}'.")
+       
+
+        else:
+           
+            raise Exception(f"Error: Tipo de columna '{column_type}' no soportado.")
+
+   
+        print(f"Valor '{value}' vqlido para la columna '{column_name}' de tipo '{column_type}'.")

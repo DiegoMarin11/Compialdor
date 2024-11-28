@@ -98,7 +98,7 @@ class ParseSelect:
             node.add_child(TreeNode('WHERE'))
             self.next_token()
             node.add_child(self.parse_condition())
-        elif self.current_token[1] == "IDENTIFIER":
+        elif self.current_token and self.current_token[1] == "IDENTIFIER":
             raise Exception("Tal vez se referia a 'Donde'?")
         else:
             node.add_child(TreeNode('Epsilon'))
@@ -122,7 +122,9 @@ class ParseSelect:
     def parse_value(self):
         """Value -> IDENTIFIER | NUMBER"""
         node = TreeNode("Value")
-
+        if self.current_token[0] == '"':
+            self.next_token()
+            pass
         if self.current_token and self.current_token[1] in ['IDENTIFIER', 'NUMBER']:
             node.add_child(TreeNode(self.current_token[0]))
             self.next_token()

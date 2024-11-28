@@ -82,18 +82,18 @@ if __name__ == "__main__":
             parse = SemanticDelete(esquema_base_datos)  
             parse.analize(parse_tree)  
             input_correctness = True    
-            print("Estructura sintactica correcta!")
+            print("Estructura semantica correcta!")
         if query_type == 'UPDATE':
             parse = SemanticUpdate(esquema_base_datos)  
             parse.analize(parse_tree)  
             input_correctness = True
-            print("Estructura sintactica correcta!")
+            print("Estructura semantica correcta!")
             
         if query_type == 'SELECT':
             parse = SemanticSelect(esquema_base_datos)  
             parse.analize(parse_tree)  
             input_correctness = True
-            print("Estructura sintactica correcta!")
+            print("Estructura semantica correcta!")
             
 
 

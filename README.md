@@ -191,15 +191,17 @@ Para probar el compilador simplemente diseñamos una consulta de cada tipo para 
 - Input: Insertar A clientes Valores (1, "Juan", 30, "juan.perez@gmail.com")
 - Input: Dame id, nombre De clientes Donde edad > 18
 - Input: Borrar De productos Donde precio > 50
-- Input: Actualizar productos El precio = 75 , stock = stock - 1 Donde id > 1
+- Input: Actualizar productos El precio = 75 , stock = stock Donde id > 1
 
 - **Resultados obtenidos:**
 Cada resultado de cada consulta respectivamente:
 - Output: INSERT INTO clientes VALUES ( 1 , " Juan " , 30 , " juan.perez@gmail.com " )
 - Output: SELECT id , nombre FROM clientes WHERE edad > 18
 - Output: DELETE FROM productos WHERE precio > 50
-- Output: UPDATE productos SET precio = 75 , stock = stock - 1 WHERE id > 1
+- Output: UPDATE productos SET precio = 75 , stock = stock WHERE id > 1
 - **Casos de prueba específicos:**
+- Input: Dame Todos De clientes
+- Output: SELECT * FROM clientes
 
 ## Herramientas y Entorno de Desarrollo
 
@@ -362,7 +364,7 @@ Extraemos la consulta del input.txt, separamos las palabras y luego secuencialme
 - **Ejecución del código compilado:**
 La salida que produce el programa es esta, por consola, mostramos la tokenizacion, el arbol sintactico y mensajes del analizador semantico para saber que cada paso se esta haciendo bien o mal. Finalmente, tenemos la consulta en SQL que deberia ser funcional si el esquema coincide proveido coincide con la base de datos en el gestor SQL
 <pre>
-[('UPDATE', 'KEYWORD'), ('productos', 'IDENTIFIER'), ('SET', 'KEYWORD'), ('precio', 'IDENTIFIER'), ('=', 'OPERATOR'), ('75', 'NUMBER'), (',', 'PUNCTUATION'), ('stock', 'IDENTIFIER'), ('=', 'OPERATOR'), ('stock', 'IDENTIFIER'), ('-', 'IDENTIFIER'), ('1', 'NUMBER'), ('WHERE', 'KEYWORD'), ('id', 'IDENTIFIER'), ('>', 'OPERATOR'), ('1', 'NUMBER')]
+[('UPDATE', 'KEYWORD'), ('productos', 'IDENTIFIER'), ('SET', 'KEYWORD'), ('precio', 'IDENTIFIER'), ('=', 'OPERATOR'), ('75', 'NUMBER'), (',', 'PUNCTUATION'), ('stock', 'IDENTIFIER'), ('=', 'OPERATOR'), ('stock', 'IDENTIFIER'), ('WHERE', 'KEYWORD'), ('id', 'IDENTIFIER'), ('>', 'OPERATOR'), ('1', 'NUMBER')]
 UpdateQuery
 UPDATE
 Table
@@ -384,10 +386,18 @@ stock
 Value
 stock
 WhereClause
-Epsilon
+WHERE
+Condition
+Column
+id
+>
+Value
+1
+Estructura sintactica correcta!
 Tabla 'productos' encontrada en la base de datos.
-falta condicional
-UPDATE productos SET precio = 75 , stock = stock - 1 WHERE id > 1
+Estructura semantica correcta!
+Consulta SQL generada:
+UPDATE productos SET precio = 75 , stock = stock WHERE id > 1
 </pre>
 ## Desafíos y Soluciones
 

@@ -98,7 +98,7 @@ class ParseUpdate:
             node.add_child(TreeNode('WHERE'))
             self.next_token()
             node.add_child(self.parse_condition())
-        elif self.current_token[1] == "IDENTIFIER":
+        elif self.current_token and self.current_token[1] == "IDENTIFIER":
             raise Exception("Tal vez se referia a 'Donde'?")
         else:
             node.add_child(TreeNode('Epsilon'))

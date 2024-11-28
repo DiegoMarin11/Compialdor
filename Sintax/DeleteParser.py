@@ -93,7 +93,9 @@ class ParseDelete:
     def parse_value(self):
         """Value -> IDENTIFIER | NUMBER"""
         node = TreeNode("Value")
-
+        if self.current_token[0] == '"':
+            self.next_token()
+            pass
         if self.current_token and self.current_token[1] in ['IDENTIFIER', 'NUMBER']:
             node.add_child(TreeNode(self.current_token[0]))
             self.next_token()
