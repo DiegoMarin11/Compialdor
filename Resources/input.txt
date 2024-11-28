@@ -1,1 +1,1 @@
- Dame id, nombre De clientes
+Actualizar productos El precio = 75 , stock = 2 Donde id > 1

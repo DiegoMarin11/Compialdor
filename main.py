@@ -40,7 +40,7 @@ if __name__ == "__main__":
         #print_table(tokens)
         input_correctness = False
                
-        #print(tokens)
+        print(tokens)
         query_type = tokens[0][0]
         #print(query_type)
 
@@ -59,7 +59,7 @@ if __name__ == "__main__":
         if query_type == 'UPDATE':
             parse = ParseUpdate(tokens)
             parse_tree = parse.parse_update()
-            #parse_tree.print_productions()
+            parse_tree.print_productions()
             print("Estructura sintactica correcta!")
             
         if query_type == 'SELECT':

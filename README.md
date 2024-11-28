@@ -364,7 +364,7 @@ Extraemos la consulta del input.txt, separamos las palabras y luego secuencialme
 - **Ejecución del código compilado:**
 La salida que produce el programa es esta, por consola, mostramos la tokenizacion, el arbol sintactico y mensajes del analizador semantico para saber que cada paso se esta haciendo bien o mal. Finalmente, tenemos la consulta en SQL que deberia ser funcional si el esquema coincide proveido coincide con la base de datos en el gestor SQL
 <pre>
-[('UPDATE', 'KEYWORD'), ('productos', 'IDENTIFIER'), ('SET', 'KEYWORD'), ('precio', 'IDENTIFIER'), ('=', 'OPERATOR'), ('75', 'NUMBER'), (',', 'PUNCTUATION'), ('stock', 'IDENTIFIER'), ('=', 'OPERATOR'), ('stock', 'IDENTIFIER'), ('WHERE', 'KEYWORD'), ('id', 'IDENTIFIER'), ('>', 'OPERATOR'), ('1', 'NUMBER')]
+[('UPDATE', 'KEYWORD'), ('productos', 'IDENTIFIER'), ('SET', 'KEYWORD'), ('precio', 'IDENTIFIER'), ('=', 'OPERATOR'), ('75', 'NUMBER'), (',', 'PUNCTUATION'), ('stock', 'IDENTIFIER'), ('=', 'OPERATOR'), ('2', 'NUMBER'), ('WHERE', 'KEYWORD'), ('id', 'IDENTIFIER'), ('>', 'OPERATOR'), ('1', 'NUMBER')]      
 UpdateQuery
 UPDATE
 Table
@@ -384,7 +384,7 @@ Column
 stock
 =
 Value
-stock
+2
 WhereClause
 WHERE
 Condition
@@ -397,7 +397,7 @@ Estructura sintactica correcta!
 Tabla 'productos' encontrada en la base de datos.
 Estructura semantica correcta!
 Consulta SQL generada:
-UPDATE productos SET precio = 75 , stock = stock WHERE id > 1
+UPDATE productos SET precio = 75 , stock = 2 WHERE id > 1
 </pre>
 ## Desafíos y Soluciones
 

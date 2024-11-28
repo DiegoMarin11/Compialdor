@@ -113,23 +113,23 @@ class ParseInsert:
         """Value -> IDENTIFIER | NUMBER"""
         node = TreeNode("Value")
 
-        if self.current_token and self.current_token[0] == '"':
+        if self.current_token and self.current_token[0] == '"': 
             self.next_token()
 
-            if self.current_token and (self.current_token[1] == 'IDENTIFIER' or self.current_token[1] == 'NUMBER'):
+            if self.current_token and self.current_token[1] == 'IDENTIFIER':
                 node.add_child(TreeNode(self.current_token[0]))
                 self.next_token()
             else:
-                raise Exception("Error: Se esperaba un IDENTIFIER o NUMBER entre comillas")
+                raise Exception("Error: Se esperaba un IDENTIFIER dentro de las comillas")
 
-            if self.current_token and self.current_token[0] == '"':  
+            if self.current_token and self.current_token[0] == '"': 
                 self.next_token()
             else:
                 raise Exception("Error: Se esperaba un cierre de comillas")
-        elif self.current_token and (self.current_token[1] == 'IDENTIFIER' or self.current_token[1] == 'NUMBER'):
+        elif self.current_token and self.current_token[1] == 'NUMBER':  
             node.add_child(TreeNode(self.current_token[0]))
             self.next_token()
         else:
-            raise Exception("Error: Se esperaba un IDENTIFIER o NUMBER")
+            raise Exception("Error: Se esperaba un valor valido (NUMBER o cadena entre comillas)")
 
         return node
