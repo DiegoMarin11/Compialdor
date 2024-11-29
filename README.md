@@ -428,10 +428,11 @@ Si bien, los tres analizadores son funcionales, todavia queda por mejorar el alc
 - **Propuestas para mejoras futuras:**
 Expandir el lenguaje para permitir varias maneras decir consultas. 
 Expandir la complejidad de las consultas para permitir varias maneras de decir una misma consulta y expandir las palabras clabe para admitir ORDER BY o condiciones anidadas.
-## Preguntas y Discusión
 
-- Espacio para responder preguntas y discusión sobre el proyecto.
 
 ## Referencias
 
 - **Fuentes citadas:** Lista de libros, artículos, papers, y otras fuentes relevantes.
+
+ Aho, A. V., Lam, M. S., Sethi, R.,, Ullman, J. D. (2006). Compilers: Principles, Techniques, and Tools (2nd Edition). Addison Wesley. ISBN: 0321486811
+
