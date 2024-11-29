@@ -36,8 +36,8 @@
 
 ## Arquitectura y Diseño del Compilador
 
-- **Diagrama de bloques:**
-  <center><img width="250px" src="./ResourcesMD/bloques.jpg"></center>
+- **Diagrama de bloques:** 
+  <center><img width="400px" src="./ResourcesMD/bloques2.png"></center>
 - **Explicación del flujo de datos:**
   La entrada en lenguaje natural se analiza para identificar palabras clave, operadores e identificar que palabras se estan refiriendo al nomnre de una columna. Luego son transformados en una consulta SQL.
 - **Decisiones de diseño:**
