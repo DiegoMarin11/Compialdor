@@ -22,10 +22,11 @@ def process_word(word, automaton, keywords):
         state = next_state
 
   
-  
 
 
-
+    full_word = ''.join(read_word)
+    if not (full_word.isidentifier() or full_word in ['(', ')', ',', '"'] or full_word in ['=', '>', '<'] or full_word.isdigit()):
+        raise ValueError(f"ERROR: Token no reconocido '{full_word}'")
 
 
     if state == 'd6' or state == 'd4':  # Acceptance states

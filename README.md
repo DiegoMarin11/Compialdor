@@ -200,6 +200,9 @@ Cada resultado de cada consulta respectivamente:
 - Output: DELETE FROM productos WHERE precio > 50
 - Output: UPDATE productos SET precio = 75 , stock = 4 WHERE id > 1
 - **Casos de prueba específicos:**
+- Actualizar productos El precio = 75 , stock = "Hola" Donde id > 1 
+- Output: UPDATE productos SET precio = 75 , stock = "Hola" WHERE id > 1
+  A veces el analizador semantico no termina de verificar condiciones cuando hay muchas columnas, si se prueba por separado este ejemplo funciona.
 - Input: Dame Todos De clientes
 - Output: SELECT * FROM clientes
 
